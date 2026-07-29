@@ -30,14 +30,18 @@ pipeline{
                 }
             }
         }
-        stage('Deploy'){
-            steps{
-                sh '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@172.31.9.253 
-                    docker pull mahoragaadating/my_react_app:latest
-                    docker rm my_app
-                    docker run  --name my_app mahoragaadating/my_react_app -p 5173:5173
-                '''
+        stage('Deploy to Production') {
+            steps {
+                sshagent(credentials: ['builder-production']) {
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no ubuntu@172.31.9.253 << 'EOF'
+                            docker pull mahoragaadating/my_react_app:latest
+                            docker stop my_app || true
+                            docker rm my_app || true
+                            docker run -d --name my_app -p 5173:5173 mahoragaadating/my_react_app:latest
+                        EOF
+                    '''
+                }
             }
         }
 
