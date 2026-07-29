@@ -35,6 +35,7 @@ pipeline{
                 sh '''
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.9.253 
                     docker pull mahoragaadating/my_react_app:latest
+                    docker rm my_app
                     docker run  --name my_app mahoragaadating/my_react_app -p 5173:5173
                 '''
             }
