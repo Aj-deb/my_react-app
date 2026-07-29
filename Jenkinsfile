@@ -33,7 +33,7 @@ pipeline{
         stage('Deploy'){
             steps{
                 sh '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@172.31.9.253 '
+                    ssh -o StrictHostKeyChecking=no ubuntu@172.31.9.253 
                     docker pull mahoragaadating/my_react_app:latest
                 '''
             }
