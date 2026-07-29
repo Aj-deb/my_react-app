@@ -12,7 +12,7 @@ pipeline{
         }
         stage('Build Image'){
             steps{
-                sh 'docker build  -t my_app .  ' 
+                sh 'docker build -t my_app .  ' 
             }
         }
         stage('Pushing To HUB'){
@@ -35,14 +35,10 @@ pipeline{
                 sh '''
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.9.253 
                     docker pull mahoragaadating/my_react_app:latest
+                    docker run  --name my_app mahoragaadating/my_react_app -p 5173:5173
                 '''
             }
         }
-        stage('Run container'){
-            steps{
-                sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.9.253"
-                sh "docker run -p 5173:5173 --name my_app mahoragaadating/my_react_app"
-            }
-        }
+
     }
 }
