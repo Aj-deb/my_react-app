@@ -10,6 +10,17 @@ pipeline{
                 checkout scm
             }
         }
+    stage("Install docker"){
+            steps{
+                sh '''
+                sudo apt update
+                sudo apt install -y docker.io
+                sudo systemctl enable docker
+                sudo systemctl start docker
+                docker --version
+                '''
+            }
+        }
         stage('Build Image'){
             steps{
                 sh 'docker build -t my_app .' 
@@ -30,20 +41,13 @@ pipeline{
                 }
             }
         }
-        stage("Install docker"){
-            steps{
-                sh '''
-                sudo apt update
-                sudo apt install -y docker.io
-                sudo systemctl enable docker
-                sudo systemctl start docker
-                docker --version
-                '''
-            }
-        }
         stage('Deploy'){
             steps{
                 sh '''
+                    sudo apt update
+                    sudo apt install -y docker.io
+                    sudo systemctl enable docker
+                    sudo systemctl start docker
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.9.253 '
                     docker pull mahoragaadating/my_react_app:latest
                 '''
