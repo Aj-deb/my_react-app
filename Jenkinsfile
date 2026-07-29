@@ -12,7 +12,7 @@ pipeline{
         }
         stage('Build Image'){
             steps{
-                sh 'docker build -t my_app .  ' 
+                sh 'docker build -t my_app .' 
             }
         }
         stage('Pushing To HUB'){
