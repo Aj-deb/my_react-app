@@ -15,7 +15,7 @@ pipeline{
                 sh 'docker build -t my_app .' 
             }
         }
-        stage('DEPOLYING TO HUB'){
+        stage('Pushing To HUB'){
             steps{
                 withCredentials([usernamePassword(
                     credentialsId:'dockerhubid',
