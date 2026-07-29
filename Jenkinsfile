@@ -40,6 +40,7 @@ pipeline{
         }
         stage('Run container'){
             steps{
+                sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.9.253"
                 sh "docker run -p 5173:5173 --name my_app mahoragaadating/my_react_app"
             }
         }
