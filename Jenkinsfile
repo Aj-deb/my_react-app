@@ -34,12 +34,12 @@ pipeline{
             steps {
                 sshagent(credentials: ['builder-production']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no ubuntu@172.31.9.253 << 'EOF'
+                        ssh -o StrictHostKeyChecking=no ubuntu@172.31.9.253 "
                             docker pull mahoragaadating/my_react_app:latest
                             docker stop my_app || true
                             docker rm my_app || true
                             docker run -d --name my_app -p 5173:5173 mahoragaadating/my_react_app:latest
-                        EOF
+                        "
                     '''
                 }
             }
