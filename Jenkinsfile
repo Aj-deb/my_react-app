@@ -40,7 +40,7 @@ pipeline{
         }
         stage('Run container'){
             steps{
-                sh "docker run --name my_app mahoragaadating/my_react_app -p 5173:5173"
+                sh "docker run -p 5173:5173 --name my_app mahoragaadating/my_react_app"
             }
         }
     }
